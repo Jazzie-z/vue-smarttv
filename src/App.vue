@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-bind:style="style">
+  <div id="app" v-bind:class="{hide_menu:hideMenu}">
     <Menu/>
     <Home/>
   </div>
@@ -48,6 +48,10 @@ computed: {
   color: #2c3e50;
   width: 1920px;
   overflow:hidden;
+  transition-duration: .5s;
+}
+.hide_menu {
+  transform:translateY(-172px);
 }
 html, body{
   height: 100%;

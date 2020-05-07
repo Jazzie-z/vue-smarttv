@@ -7,9 +7,9 @@
             <Card v-for="(item,i) in carouselItem.editorialItems" :key="item.id" v-bind:src="item.image.MEDIUM" 
             v-bind:isFocused="focusedIndex===i && isFocused"/>
         </div>
-        <div class="video-container" v-bind:style="showVideo">
-            <video loop autoplay v-bind:class="{show_video:show}">
-                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4"/>
+        <div class="video-container" v-bind:style="showVideo" >
+            <video loop autoplay v-bind:class="{show_video:show}" v-if="show">
+                <source src="../../assets/trailer.mp4" type="video/mp4"/>
             </video>
         </div>
     </div>
