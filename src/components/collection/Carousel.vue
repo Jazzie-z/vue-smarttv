@@ -7,6 +7,11 @@
             <Card v-for="(item,i) in carouselItem.editorialItems" :key="item.id" v-bind:src="item.image.MEDIUM" 
             v-bind:isFocused="focusedIndex===i && isFocused"/>
         </div>
+        <div class="video-container" v-bind:style="showVideo">
+            <video loop autoplay v-bind:class="{show_video:show}">
+                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4"/>
+            </video>
+        </div>
     </div>
 </template>
 
@@ -21,7 +26,9 @@ import { enableNavigation } from '../../helper/navigationHelper'
         data(){
             return{
                 focusedIndex: 0,
-                scrollLeft:0
+                scrollLeft:0,
+                show:false,
+                timer:null
             }
         },
         props:['carouselItem','isFocused','index'],
@@ -30,6 +37,20 @@ import { enableNavigation } from '../../helper/navigationHelper'
         computed: {
          style () {
             return { transform: 'translateX(' + this.scrollLeft + 'px)'}
+            },
+        showVideo(){
+            console.error(this.isFocused)
+            return { 'max-height': this.show? '400px':0}
+        }
+        },
+        updated(){
+            clearTimeout(this.timer)
+            if(this.isFocused){                
+                this.timer = setTimeout(()=>{
+                    this.show=true
+                },5000)
+            }else{
+                this.show=false
             }
         },
         mounted(){        
@@ -38,12 +59,15 @@ import { enableNavigation } from '../../helper/navigationHelper'
                     if(this.focusedIndex >0){
                         this.focusedIndex -=1
                         this.scrollLeft +=260
+                        this.show=false
                         }
+                        
                 },
                 'RIGHT':()=>{
                     if(this.focusedIndex <this.carouselItem.editorialItems.length){
                     this.focusedIndex +=1
                     this.scrollLeft -=260
+                    this.show=false
                     }
                 },
                 preCondition:()=>this.isFocused
@@ -75,5 +99,29 @@ import { enableNavigation } from '../../helper/navigationHelper'
 .focus{
     margin-bottom: 37px;
     opacity:1;
+}
+.video-container{
+    width: 70%;
+    height: 100vh;
+    text-align: center;
+    margin: 0 auto;
+    transition-duration: .9s;
+    background: black;
+}
+video {
+    object-fit: cover;
+    height:100%;
+    width:100%;
+    visibility: hidden;
+}
+.show_video{
+    animation: blink-animation .2s steps(10, start);
+    animation-iteration-count: 2;
+    visibility: visible;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:style="style">
     <Menu/>
     <Home/>
   </div>
@@ -8,13 +8,34 @@
 <script>
 import Menu from './components/Menu.vue'
 import Home from './components/Home.vue'
+import { focusHandler } from './main'
 
 export default {
   name: 'App',
   components: {
     Menu,
     Home
-  }
+  },
+    data(){
+            return{
+                hideMenu: false,
+            }
+  },
+  created() {
+            focusHandler.$on('FOCUS_CHANGE',({component,isFocused})=>{
+                if(component==='MAIN_COMPONENT' && isFocused){
+                    this.hideMenu=true
+                }
+                if(component==='MENU'){
+                    this.hideMenu=false
+                }
+            })
+},
+computed: {
+         style () {
+            return { transform: this.hideMenu?'translateY(-172px)':0}
+            },
+}
 }
 </script>
 
@@ -26,7 +47,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   width: 1920px;
-  height:1080px;
   overflow:hidden;
 }
 html, body{
