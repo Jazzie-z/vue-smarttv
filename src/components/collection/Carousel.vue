@@ -55,6 +55,7 @@ import { enableNavigation } from '../../helper/navigationHelper'
         },
         mounted(){        
         enableNavigation({
+            id: `carousel-${this.carouselItem.name}`,
                 'LEFT':()=>{
                     if(this.focusedIndex >0){
                         this.focusedIndex -=1

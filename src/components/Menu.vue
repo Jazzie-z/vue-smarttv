@@ -31,7 +31,7 @@
                 const path = this.menuItem.filter(item => item.isFocused).pop().id
                 if(!this.$route.path.includes(path))
                     this.$router.push(path).catch(err=>{console.error(err)})
-            },100)
+            },0)
         },
         mounted(){
             if(this.$route.path!=='/')
