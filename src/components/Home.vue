@@ -40,8 +40,9 @@ export default {
         return { transform: 'translateY(' + this.scrollTop + 'px)'}
      }
   },
-  created(){
-    focusHandler.$on('FOCUS_CHANGE',({component,isFocused,direction})=>{
+  methods:{
+    keyListener({component,isFocused,direction}){
+      
       if(component==='MAIN_COMPONENT' && !isFocused && this.carouselData.length){       
         focusHandler.$emit('FOCUS_CHANGE',{component:'MAIN_COMPONENT',isFocused:true})
       }else if(component === 'HOME_FOCUS'){
@@ -61,20 +62,26 @@ export default {
         // this.carouselData=this.carouselData.forEach(item=>item)        
       }else if(component==='MENU'){
         this.focusedIndex=null
-      }        
-      console.error(this.focusedIndex,this.carouselData)
-    })
+      }
+    },
+  },
+  destroyed(){
+    focusHandler.$off('FOCUS_CHANGE',this.keyListener)
+  },
+  mounted(){
+    focusHandler.$on('FOCUS_CHANGE',this.keyListener)
     enableNavigation({
       preCondition: this.focusedIndex!==null,
-      'DOWN':()=>{
+      'DOWN':()=>{console.error('this.focusedIndex',this.focusedIndex)
         focusHandler.$emit('FOCUS_CHANGE',{component:'HOME_FOCUS', direction: 'DOWN'})
       },
-      'UP':()=>{
+      'UP':()=>{console.error('this.focusedIndex',this.focusedIndex)
         if(this.focusedIndex)
           focusHandler.$emit('FOCUS_CHANGE',{component:'HOME_FOCUS', direction: 'UP'})
         else
           focusHandler.$emit('FOCUS_CHANGE',{component:'MENU'})
-      }
+      },
+      id:'home'
     })
     // let url = 'https://ssl.dstv.com/api/cs-mobile/editorial/v6/getEditorialsForUser;productId=1b09957b-27aa-493b-a7c9-53b3cec92d63;platformId=f8113a08-286b-4250-b7c5-31fbfcaec8b0;packageId=3e6e5480-8b8a-4fd5-9721-470c895f91e2'
     // fetch(url,{

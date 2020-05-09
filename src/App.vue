@@ -1,20 +1,18 @@
 <template>
   <div id="app" v-bind:class="{hide_menu:hideMenu}">
     <Menu/>
-    <Home/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Menu from './components/Menu.vue'
-import Home from './components/Home.vue'
 import { focusHandler } from './main'
 
 export default {
   name: 'App',
   components: {
     Menu,
-    Home
   },
     data(){
             return{

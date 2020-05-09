@@ -14,17 +14,28 @@
         data() {
             return {
                 menuItem: [
-                    {isFocused:true, title:'Home'},
-                    {isFocused:false, title:'Live Tv'},
-                    {isFocused:false, title:'Catchup'},
-                    {isFocused:false, title:'Search'},
-                    {isFocused:false, title:'Settings'},
+                    {isFocused:true, title:'Home', id:'home'},
+                    {isFocused:false, title:'Movies', id:'movies'},
+                    {isFocused:false, title:'Catchup', id:'catchup'},
+                    {isFocused:false, title:'Search', id:'search'},
+                    {isFocused:false, title:'Settings', id:'settings'},
                 ],
                 isFocused:true
             }
         },
         methods:{
             
+        },
+        updated(){            
+            setTimeout(()=>{
+                const path = this.menuItem.filter(item => item.isFocused).pop().id
+                if(!this.$route.path.includes(path))
+                    this.$router.push(path).catch(err=>{console.error(err)})
+            },100)
+        },
+        mounted(){
+            if(this.$route.path!=='/')
+            this.$router.push('/').catch(err=>{console.error(err)})
         },
         created() {
             focusHandler.$on('FOCUS_CHANGE',({component,isFocused})=>{
@@ -37,23 +48,26 @@
                 }
             })
             enableNavigation({
+                id:'menu',
                 'LEFT':()=>{
                     let activeIndex = this.menuItem.findIndex(e=>e.isFocused)
                     if(activeIndex >0)
                         this.menuItem=this.menuItem.map((e,i)=>{
                             e.isFocused=false
-                            if(i===activeIndex-1)
-                                e.isFocused=true
+                            if(i===activeIndex-1){
+                                e.isFocused=true;
+                                }
                             return e
-                        })
+                        })                                                
                 },
                 'RIGHT':()=>{
                     let activeIndex = this.menuItem.findIndex(e=>e.isFocused)
                     if(activeIndex+1 <this.menuItem.length)
                     this.menuItem=this.menuItem.map((e,i)=>{
                         e.isFocused=false
-                        if(i===activeIndex+1)
+                        if(i===activeIndex+1){
                             e.isFocused=true
+                        }
                         return e
                     })
                 },
