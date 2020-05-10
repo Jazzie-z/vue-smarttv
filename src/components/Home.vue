@@ -1,6 +1,6 @@
 <template>
   <div class="component">
-   <img class ="background" src="../assets/background.png"/>
+   <img class ="background" src="../assets/background.png"/>   
    <div class="main-container">
      <div class="carousel-container" v-bind:style="style">
     <div v-for="(item,index) in carouselData" :key ='index'>
@@ -15,6 +15,9 @@
     <!-- <ul>
     <li v-for="fruit in fruits" :key="fruit">{{fruit}}</li>
 </ul> -->
+<div class="side_panel">
+
+</div>
   </div>
 </template>
 
@@ -104,13 +107,6 @@ export default {
   height:100%;
   color:white;
 }
-.background{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-}
 .main-container{
   z-index: 1;
   position:relative;
@@ -119,5 +115,21 @@ export default {
 .carousel-container {
   position: relative;
   transition: 0.5s;
+}
+.side_panel{
+  background: #080c02a6;
+    width: 200px;
+    position: absolute;
+    top: 10px;
+    height: 1080px;
+    right: 0;
+    z-index: 1;
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+    box-shadow: 3px 0px 42px 15px #00cef4;
+    opacity: 0;
+}
+.side_panel:hover {
+  opacity: 1;
 }
 </style>

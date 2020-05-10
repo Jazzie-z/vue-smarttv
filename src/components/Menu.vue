@@ -16,7 +16,7 @@
                 menuItem: [
                     {isFocused:true, title:'Home', id:'home'},
                     {isFocused:false, title:'Movies', id:'movies'},
-                    {isFocused:false, title:'Catchup', id:'catchup'},
+                    {isFocused:false, title:'Suggestion', id:'suggestion'},
                     {isFocused:false, title:'Search', id:'search'},
                     {isFocused:false, title:'Settings', id:'settings'},
                 ],
@@ -34,8 +34,8 @@
             },0)
         },
         mounted(){
-            if(this.$route.path!=='/')
-            this.$router.push('/').catch(err=>{console.error(err)})
+            // if(this.$route.path!=='/')
+            // this.$router.push('/').catch(err=>{console.error(err)})
         },
         created() {
             focusHandler.$on('FOCUS_CHANGE',({component,isFocused})=>{

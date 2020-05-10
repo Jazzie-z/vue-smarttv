@@ -4,7 +4,10 @@
         {{carouselItem.name}}
         </div>
         <div class="carousel-wrapper" v-bind:style="style">
-            <Card v-for="(item,i) in carouselItem.editorialItems" :key="item.id" v-bind:src="item.image.MEDIUM" 
+            <Card v-for="(item,i) in carouselItem.editorialItems" :key="item.id" 
+            v-bind:animation="animation"
+            v-bind:item="item"
+            v-bind:src="item.image.MEDIUM" 
             v-bind:isFocused="focusedIndex===i && isFocused"/>
         </div>
         <div class="video-container" v-bind:style="showVideo" >
@@ -31,7 +34,7 @@ import { enableNavigation } from '../../helper/navigationHelper'
                 timer:null
             }
         },
-        props:['carouselItem','isFocused','index'],
+        props:['carouselItem','isFocused','index','animation'],
         methods:{
         },
         computed: {

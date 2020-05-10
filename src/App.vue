@@ -43,13 +43,20 @@ computed: {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
   width: 1920px;
   overflow:hidden;
   transition-duration: .5s;
 }
 .hide_menu {
   transform:translateY(-172px);
+}
+.background{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
 }
 html, body{
   height: 100%;

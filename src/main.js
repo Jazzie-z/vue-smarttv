@@ -7,7 +7,6 @@ Vue.config.productionTip = false
 export const focusHandler = new Vue()
 
 Vue.use(VueRouter);
-
 const router = new VueRouter({
   routes:Routes
 })
